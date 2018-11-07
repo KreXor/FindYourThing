@@ -1,0 +1,11 @@
+{% extends 'activity/base.html' %}
+
+{% block content %}
+	{% for activity in activities %}
+ 		<div>
+       			<p>published: {{ activity.published_date }}</p>
+       			<h2><a href="">{{ activity.title }}</a></h2>
+       			<p>{{ activity.description|linebreaksbr }}</p>
+    		</div>
+	{% endfor %}
+{% endblock %}
