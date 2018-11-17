@@ -1,96 +1,134 @@
 {% load static %}
 <html>
 	<head>
+		<meta charset="utf-8" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
 		<title>Aktiviteter</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous" />
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>		
-		<link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="{% static 'css/activity.css' %}">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css" />
+
+		<link rel="stylesheet" href="{% static 'css/activity.css' %}" />
+
 		<script src="{% static 'js/search.js' %}"></script>
 	</head>
 	<body>
-		
-		<nav class="navbar navbar-default" role="navigation">
-		  <div class="container" id="navfluid">
-		    <!-- Brand and toggle get grouped for better mobile display -->
-		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigationbar" aria-expanded="false">
-		        <span class="sr-only">Toggle navigation</span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		      </button>
-		      <a class="navbar-brand" href="#">Find your thing</a>
-		    </div>
-
-		    <!-- Collect the nav links, forms, and other content for toggling -->
-		    <div class="collapse navbar-collapse" id="navigationbar">  
-		    	
-		      <form class="navbar-form navbar-right">
-		      	
-		      	<button type="Search" class="btn btn-orange">Join</button>
-		      </form>
-		    </div><!-- /.navbar-collapse -->
-		  </div><!-- /.container-fluid -->
+  	<nav class="navbar navbar-default" role="navigation">
+			<div class="container" id="navfluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigationbar" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Find your thing</a>
+				</div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="navigationbar">
+					<form class="navbar-form navbar-right">
+						<button type="Search" class="btn btn-orange">Join</button>
+					</form>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
 		</nav>
-
 		<div class="page-header">
-			<center><h1>Let's <span class="text-primary">do </span> anything</h1></center>
-			<br>
+			<center>
+				<h1>Let's
+					<span class="text-primary">do</span>
+					anything
+
+				</h1>
+			</center>
+			<br />
+   
 			<form class="search-form">
-			  <input type="search" value="" placeholder="Location" class="search-input">
-			  <button type="submit" class="search-button">
-			  	<i class="fas fa-search"></i>
-			  </button>
-			  <div class="search-option">
-			    <div>
-			      <input name="type" type="radio" value="type-activity" id="type-activity">
-			      <label for="type-posts">
+				<input type="search" value="" placeholder="Location" class="search-input" />
+
+				<button type="submit" class="search-button">
+					<i class="fas fa-search"></i>
+				</button>
+				<div class="search-option">
+					<div>
+						<input name="type" type="radio" value="type-activity" id="type-activity" />
+
+						<label for="type-posts">
 							<i class="fas fa-futbol"></i>
-			        <span>Activity</span>
-			      </label>
-			    </div>
-			    <div>
-			      <input name="type" type="radio" value="type-location" id="type-location">
-			      <label for="type-images">
-			      	<i class="fas fa-map-marked"></i>
-			        <span>Location</span>
-			      </label>
-			    </div>
-			  
-			  </div>
+							<span>Activity</span>
+						</label>
+					</div>
+					<div>
+						<input name="type" type="radio" value="type-location" id="type-location" />
+
+						<label for="type-images">
+							<i class="fas fa-map-marked"></i>
+							<span>Location</span>
+						</label>
+					</div>
+				</div>
 			</form>
-			
 			<div class="container">
 				<div class="row text-center">
-	        <br>
-	        <h2 style="color:white;</h2>">Recommended <span class="text-primary">ativities</span> for you</h2>
-	        <br>
-					<label for="default" class="btn btn-default">Paintball <input type="checkbox" id="default" class="badgebox"><span class="badge">&check;</span></label>
-	        <label for="primary" class="btn btn-primary">Dance <input type="checkbox" id="primary" class="badgebox"><span class="badge">&check;</span></label>
-	        <label for="info" class="btn btn-info">Fotball <input type="checkbox" id="info" class="badgebox"><span class="badge">&check;</span></label>
-	        <label for="success" class="btn btn-success">Tenis <input type="checkbox" id="success" class="badgebox"><span class="badge">&check;</span></label>
-	        <label for="warning" class="btn btn-warning">Trekking <input type="checkbox" id="warning" class="badgebox"><span class="badge">&check;</span></label>
-	        <label for="danger" class="btn btn-danger">Climbing <input type="checkbox" id="danger" class="badgebox"><span class="badge">&check;</span></label>
+					<br />
+
+					<h2 style="color:white;">Recommended
+					<span class="text-primary">ativities</span>
+					for you</h2>
+
+					<br />
+
+					<label for="default" class="btn btn-default">Paintball
+						<input type="checkbox" id="default" class="badgebox" />
+
+						<span class="badge">&check;</span>
+					</label>
+					<label for="primary" class="btn btn-primary">Dance
+						<input type="checkbox" id="primary" class="badgebox" />
+
+						<span class="badge">&check;</span>
+					</label>
+					<label for="info" class="btn btn-info">Fotball
+						<input type="checkbox" id="info" class="badgebox" />
+
+						<span class="badge">&check;</span>
+					</label>
+					<label for="success" class="btn btn-success">Tenis
+						<input type="checkbox" id="success" class="badgebox" />
+
+						<span class="badge">&check;</span>
+					</label>
+					<label for="warning" class="btn btn-warning">Trekking
+						<input type="checkbox" id="warning" class="badgebox" />
+
+						<span class="badge">&check;</span>
+					</label>
+					<label for="danger" class="btn btn-danger">Climbing
+						<input type="checkbox" id="danger" class="badgebox" />
+
+						<span class="badge">&check;</span>
+					</label>
 				</div>
 			</div>
 		</div>
-		
-		
-
-  
 		<div class="content container">
 			<div class="row">
 				<div class="col-md-8">
 					{% block content %}
 					{% endblock %}
+
 				</div>
 			</div>
 		</div>
-		
 	</body>
 </html>
-
