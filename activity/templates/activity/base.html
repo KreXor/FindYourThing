@@ -1,4 +1,5 @@
 {% load static %}
+
 <html>
 	<head>
 		<meta charset="utf-8" />
@@ -19,6 +20,9 @@
 		<link rel="stylesheet" href="{% static 'css/activity.css' %}" />
 
 		<script src="{% static 'js/search.js' %}"></script>
+		
+		<script src='https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+		<link href='https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
 	</head>
 	<body>
   	<nav class="navbar navbar-default" role="navigation">
@@ -43,92 +47,9 @@
 			</div>
 			<!-- /.container-fluid -->
 		</nav>
-		<div class="page-header">
-			<center>
-				<h1>Let's
-					<span class="text-primary">do</span>
-					anything
-
-				</h1>
-			</center>
-			<br />
-   
-			<form class="search-form">
-				<input type="search" value="" placeholder="Location" class="search-input" />
-
-				<button type="submit" class="search-button">
-					<i class="fas fa-search"></i>
-				</button>
-				<div class="search-option">
-					<div>
-						<input name="type" type="radio" value="type-activity" id="type-activity" />
-
-						<label for="type-posts">
-							<i class="fas fa-futbol"></i>
-							<span>Activity</span>
-						</label>
-					</div>
-					<div>
-						<input name="type" type="radio" value="type-location" id="type-location" />
-
-						<label for="type-images">
-							<i class="fas fa-map-marked"></i>
-							<span>Location</span>
-						</label>
-					</div>
-				</div>
-			</form>
-			<div class="container">
-				<div class="row text-center">
-					<br />
-
-					<h2 style="color:white;">Recommended
-					<span class="text-primary">ativities</span>
-					for you</h2>
-
-					<br />
-
-					<label for="default" class="btn btn-default">Paintball
-						<input type="checkbox" id="default" class="badgebox" />
-
-						<span class="badge">&check;</span>
-					</label>
-					<label for="primary" class="btn btn-primary">Dance
-						<input type="checkbox" id="primary" class="badgebox" />
-
-						<span class="badge">&check;</span>
-					</label>
-					<label for="info" class="btn btn-info">Fotball
-						<input type="checkbox" id="info" class="badgebox" />
-
-						<span class="badge">&check;</span>
-					</label>
-					<label for="success" class="btn btn-success">Tenis
-						<input type="checkbox" id="success" class="badgebox" />
-
-						<span class="badge">&check;</span>
-					</label>
-					<label for="warning" class="btn btn-warning">Trekking
-						<input type="checkbox" id="warning" class="badgebox" />
-
-						<span class="badge">&check;</span>
-					</label>
-					<label for="danger" class="btn btn-danger">Climbing
-						<input type="checkbox" id="danger" class="badgebox" />
-
-						<span class="badge">&check;</span>
-					</label>
-				</div>
-			</div>
-		</div>
-		<div class="content container">
-			<div class="row">
-				<div class="col-md-8">
-					{% block content %}
-					{% endblock %}
-
-				</div>
-			</div>
-		</div>
+		{% block content %}
+		{% endblock %}
+		
+		
 	</body>
 </html>

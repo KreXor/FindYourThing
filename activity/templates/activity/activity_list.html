@@ -1,11 +1,117 @@
 {% extends 'activity/base.html' %}
-
 {% block content %}
-	{% for activity in activities %}
- 		<div>
-       			<p>published: {{ activity.published_date }}</p>
-       			<h2><a href="">{{ activity.title }}</a></h2>
-       			<p>{{ activity.description|linebreaksbr }}</p>
-    		</div>
-	{% endfor %}
+	<div class="page-header">
+		<center>
+			<h1>Let's
+				<span class="text-primary">do</span>
+				anything
+
+			</h1>
+		</center>
+		<br />
+
+		<form class="search-form">
+			<input type="search" value="" placeholder="Location" class="search-input" />
+
+			<button type="submit" class="search-button">
+				<i class="fas fa-search"></i>
+			</button>
+			<div class="search-option">
+				<div>
+					<input name="type" type="radio" value="type-activity" id="type-activity" />
+
+					<label for="type-posts">
+						<i class="fas fa-futbol"></i>
+						<span>Activity</span>
+					</label>
+				</div>
+				<div>
+					<input name="type" type="radio" value="type-location" id="type-location" />
+
+					<label for="type-images">
+						<i class="fas fa-map-marked"></i>
+						<span>Location</span>
+					</label>
+				</div>
+			</div>
+		</form>
+		<div class="container">
+			<div class="row text-center">
+				<br />
+
+				<h2 style="color:white;">Recommended
+				<span class="text-primary">ativities</span>
+				for you</h2>
+
+				<br />
+
+				<label for="default" class="btn btn-default">Paintball
+					<input type="checkbox" id="default" class="badgebox" />
+
+					<span class="badge">&check;</span>
+				</label>
+				<label for="primary" class="btn btn-primary">Dance
+					<input type="checkbox" id="primary" class="badgebox" />
+
+					<span class="badge">&check;</span>
+				</label>
+				<label for="info" class="btn btn-info">Fotball
+					<input type="checkbox" id="info" class="badgebox" />
+
+					<span class="badge">&check;</span>
+				</label>
+				<label for="success" class="btn btn-success">Tenis
+					<input type="checkbox" id="success" class="badgebox" />
+
+					<span class="badge">&check;</span>
+				</label>
+				<label for="warning" class="btn btn-warning">Trekking
+					<input type="checkbox" id="warning" class="badgebox" />
+
+					<span class="badge">&check;</span>
+				</label>
+				<label for="danger" class="btn btn-danger">Climbing
+					<input type="checkbox" id="danger" class="badgebox" />
+
+					<span class="badge">&check;</span>
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="container center">
+			{% for activity in activities %}
+				<div class="row">
+					<div class="col-md-6 activity-list">
+						<div class="well well-sm">
+							<div class="row">
+								<div class="col-xs-12 col-md-12 section-box">
+									<h2>
+										<a href="{{ activity.id }}" target="_blank">{{ activity.title }}</a>
+									</h2>
+									<p>
+										Design elements, playground and code snippets for Bootstrap HTML/CSS/JS framework</p>
+									<hr />
+									<div class="row rating-desc">
+										<div class="col-md-9">
+											<span class="glyphicon glyphicon-heart"></span><span class="glyphicon glyphicon-heart">
+											</span><span class="glyphicon glyphicon-heart"></span><span class="glyphicon glyphicon-heart">
+											</span><span class="glyphicon glyphicon-heart"></span>(36)<span class="separator">|</span>
+											<span class="glyphicon glyphicon-comment"></span>(100 Comments)
+										</div>
+										<div class="col-md-3">
+											<a class="btn btn-orange" href="{{ activity.id }}" role="button">More info</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+	</div>
+<div class="container">
+    
+</div>
 {% endblock %}
+
+
