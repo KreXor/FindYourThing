@@ -1,4 +1,5 @@
 {% extends 'activity/base.html' %}
+
 {% block content %}
 	<div class="page-header">
 		<center>
@@ -9,11 +10,10 @@
 			</h1>
 		</center>
 		<br />
+		<div class="search-form">
+			<input type="search" value="" placeholder="Try London or Alingsås" list="locations" class="search-input " id="search-field"/>
 
-		<form class="search-form">
-			<input type="search" value="" placeholder="Location" class="search-input" />
-
-			<button type="submit" class="search-button">
+			<button type="button" class="search-button" id="btn-submit">
 				<i class="fas fa-search"></i>
 			</button>
 			<div class="search-option">
@@ -34,8 +34,10 @@
 					</label>
 				</div>
 			</div>
-		</form>
-		<div class="container">
+		</div>
+		
+		<datalist id="locations"></datalist>
+	<!--	<div class="container">
 			<div class="row text-center">
 				<br />
 
@@ -76,10 +78,11 @@
 					<span class="badge">&check;</span>
 				</label>
 			</div>
-		</div>
+		</div>-->
 	</div>
-	<div class="container center">
-			{% for activity in activities %}
+	<div class="container center" id="activity-result">
+		<h1>Nothing here! Try to search for Alingsås or London</h1>
+			<!--{% for activity in activities %}
 				<div class="row">
 					<div class="col-md-6 activity-list">
 						<div class="well well-sm">
@@ -89,7 +92,8 @@
 										<a href="{{ activity.id }}" target="_blank">{{ activity.title }}</a>
 									</h2>
 									<p>
-										Design elements, playground and code snippets for Bootstrap HTML/CSS/JS framework</p>
+										{{ activity.description }}
+									</p>
 									<hr />
 									<div class="row rating-desc">
 										<div class="col-md-9">
@@ -107,11 +111,150 @@
 						</div>
 					</div>
 				</div>
-			{% endfor %}
+			{% endfor %} -->
 	</div>
-<div class="container">
-    
-</div>
+
+
+
+<script>
+
+var csrftoken = $.cookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+var checkhash = false;
+$(document).ready(function() {
+	if(document.location.hash) {
+		checkhash = true;
+		search();
+	};
+	
+	$('#btn-submit').click(search);
+	
+	$('#search-field').bind("enterKey",function(e){
+		search();
+	});	
+	$('#search-field').keyup(function(e){
+		if(e.keyCode == 13)
+		{
+			$(this).trigger("enterKey");
+		}
+	});
+ 
+});
+
+
+var dataList = document.getElementById('locations');
+
+$("#search-field").on('input', function(){
+	var query = $(this).val();
+	 
+	if(query.length>= 3){
+		ajax_search(query);
+	}
+	
+});
+
+function search() {
+	$( "#activity-result" ).empty();
+	var data = new FormData();
+	var location = $('#search-field').val();
+	
+	if(checkhash == true) {
+		location = decodeURI(document.location.hash);
+		location = location.replace('#', '');
+		checkhash = false;
+	}
+
+	document.location.hash = location;
+	data.append('location', location);
+	$.ajax({
+		type: 'POST',
+		url:'',
+		contentType : 'application/json',
+		data: data,
+		processData: false,
+		contentType: false,
+		success: function(json) {
+			var obj = jQuery.parseJSON(json);
+			$.each(obj, function(key,value) {
+				
+				var e = $('\
+				<div class="row">\
+					<div class="col-md-6 activity-list">\
+						<div class="well well-sm">\
+							<div class="row">\
+								<div class="col-xs-12 col-md-12 section-box">\
+									<h2>\
+										<a href="'+value.pk+'">'+value.fields.title+'</a>\
+									</h2>\
+									<p>\
+										'+value.fields.description+'\
+									</p>\
+									<hr />\
+									<div class="row rating-desc">\
+										<div class="col-md-9">\
+											<span class="glyphicon glyphicon-heart"></span><span class="glyphicon glyphicon-heart">\
+											</span><span class="glyphicon glyphicon-heart"></span><span class="glyphicon glyphicon-heart">\
+											</span><span class="glyphicon glyphicon-heart"></span>(36)<span class="separator">|</span>\
+											<span class="glyphicon glyphicon-comment"></span>(100 Comments)\
+										</div>\
+										<div class="col-md-3">\
+											<a class="btn btn-orange" href="'+value.pk+'" role="button">More info</a>\
+										</div>\
+									</div>\
+								</div>\
+							</div>\
+						</div>\
+					</div>\
+				</div>');
+				
+				$('#activity-result').append(e);
+			})
+		},
+		error: function (ajaxContext) {
+			console.log(ajaxContext.responseText)
+		}
+	})
+}
+function ajax_search(query){
+	$.ajax({
+		type: 'GET',
+		//CORS-enabled API
+		url: "https://api.mapbox.com/geocoding/v5/mapbox.places/" + encodeURIComponent(query) + ".json?access_token=pk.eyJ1Ijoia3JleG9yIiwiYSI6ImNqb2xmMXR3eTBxNWgzdXBjbDhwaXNnNGwifQ.mrvvkjdCDkVX-IQ1ygPvEg&types=place&autocomplete=true",
+	
+		dataType: "json",
+
+		success: function (json) {
+			$("#locations").empty();
+			for (var i = 0; i < json.features.length; i += 1) {
+				var option = document.createElement('option');
+				option.value = json.features[i]['place_name'];
+				dataList.appendChild(option);
+			}
+		},
+
+		error: function (ajaxContext) {
+			console.log(ajaxContext.responseText)
+		}
+	});
+}
+
+
+
+</script>  
+
 {% endblock %}
 
 

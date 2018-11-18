@@ -3,62 +3,92 @@
 {% block content %}
 
 	<div class="container">
-		<div class="row user-menu-container square">
-			<div class="col-md-7 user-details">
+		<div class="row activity-menu-container square">
+			<div class="col-md-7 activity-details">
 				<div class="row coralbg white">
 					<div class="col-md-6 no-pad">
-						<div class="user-pad">
+						<div class="activity-pad">
 							<h3>{{ activity.title }}</h3>
-							<h4 class="white"><i class="fa fa-check-circle-o"></i> Alingsas, Sverige</h4>
+							<h4 class="white"><i class="fa fa-check-circle-o"></i> {{ activity.type }}</h4>
 							{{ activity.description }}
 						</div>
 					</div>
 					<div class="col-md-6 no-pad">
-						<div class="user-image">
+						<div class="activity-image">
 							<img src="https://www.nhlbi.nih.gov/health/educational/wecan/images/header.get-active.physical-activity-guidelines.jpg" class="img-responsive thumbnail">
 						</div>
 					</div>
 				</div>
 				<div class="row overview">
-					<div class="col-md-4 user-pad text-center">
-						Footer Test
+					<div class="col-md-6 activity-pad">
+						Address: {{activity.address}}
+					</div>
+					<div class="col-md-6 activity-pad">
+						<div class="row">
+						Open
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								Today:
+							</div>
+							<div class="col-md-8">
+								8am - 9pm
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								Tomorrow:
+							</div>
+							<div class="col-md-8">
+								8am - 10pm
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								Wednesday:
+							</div>
+							<div class="col-md-8">
+								8am - 10pm
+							</div>
+						</div>
 					</div>
 				</div>
             </div>
-			<div class="col-md-1 user-menu-btns">
-				<div class="btn-group-vertical square" id="responsive">
-					<a href="#" class="btn btn-block btn-default active">
-					  Map
-					</a>
-					<a href="#" class="btn btn-default">
-					  Reviews
-					</a>
-					<a href="#" class="btn btn-default">
-					  Promotion
-					</a>
-				</div>
-			</div>
-			<div class="col-md-4 user-menu user-pad">
-				<div class="user-menu-content active">
-					<div id='map' style='max-width: 400px; min-width: 180px; height: 290px;'></div>
-					<script>
-						mapboxgl.accessToken = 'pk.eyJ1Ijoia3JleG9yIiwiYSI6ImNqb2xmMXR3eTBxNWgzdXBjbDhwaXNnNGwifQ.mrvvkjdCDkVX-IQ1ygPvEg';
-						var map = new mapboxgl.Map({
-						container: 'map',
-						style: 'mapbox://styles/mapbox/streets-v10'
+			<div class="col-md-5 activity-menu activity-pad">
+				<div id='map' class="map-container"></div>
+				<script>
+					mapboxgl.accessToken = 'pk.eyJ1Ijoia3JleG9yIiwiYSI6ImNqb2xmMXR3eTBxNWgzdXBjbDhwaXNnNGwifQ.mrvvkjdCDkVX-IQ1ygPvEg';
+					var map = new mapboxgl.Map({
+					container: 'map',
+					style: 'mapbox://styles/mapbox/streets-v10',
+					center: ["{{activity.long}}","{{activity.lat}}"],
+					zoom: 9
+					});
+
+					map.on("load", function () {
+					  /* Image: An image is loaded and added to the map. */
+					  map.loadImage("https://i.imgur.com/MK4NUzI.png", function(error, image) {
+						  if (error) throw error;
+						  map.addImage("custom-marker", image);
+						  /* Style layer: A style layer ties together the source and image and specifies how they are displayed on the map. */
+						  map.addLayer({
+							id: "markers",
+							type: "symbol",
+							/* Source: A data source specifies the geographic coordinate where the image marker gets placed. */
+							source: {
+							  type: "geojson",
+							  data: {
+								type: "FeatureCollection",
+								features:[{"type":"Feature","geometry":{"type":"Point","coordinates":["{{activity.long}}","{{activity.lat}}"]}}]
+							  }
+							},
+							layout: {
+							  "icon-image": "custom-marker",
+							}
+						  });
 						});
-					</script>
-				</div>
-				<div class="user-menu-content">
-					<h3>
-						Reviews
-					</h3>
-				</div>
-				<div class="user-menu-content">
-					<h3>
-						Promotion
-					</h3>
-				</div>
+					});
+				</script>
 			</div>
 		</div>
 	</div>	
