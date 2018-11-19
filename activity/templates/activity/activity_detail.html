@@ -9,7 +9,7 @@
 					<div class="col-md-6 no-pad">
 						<div class="activity-pad">
 							<h3>{{ activity.title }}</h3>
-							<h4 class="white"><i class="fa fa-check-circle-o"></i> {{ activity.type }}</h4>
+							<h4 class="white"><i class="fa fa-check-circle-o"></i> {{ activity.type.name }}</h4>
 							{{ activity.description }}
 						</div>
 					</div>
@@ -21,7 +21,11 @@
 				</div>
 				<div class="row overview">
 					<div class="col-md-6 activity-pad">
-						Address: {{activity.address}}
+						Address: 
+						{{activity.address.address1}},
+						{{activity.address.zip_code}},
+						{{activity.address.city}},
+						{{activity.address.country}}
 					</div>
 					<div class="col-md-6 activity-pad">
 						<div class="row">
@@ -61,8 +65,8 @@
 					var map = new mapboxgl.Map({
 					container: 'map',
 					style: 'mapbox://styles/mapbox/streets-v10',
-					center: ["{{activity.long}}","{{activity.lat}}"],
-					zoom: 9
+					center: ["{{activity.address.long}}","{{activity.address.lat}}"],
+					zoom: 13
 					});
 
 					map.on("load", function () {
@@ -79,7 +83,7 @@
 							  type: "geojson",
 							  data: {
 								type: "FeatureCollection",
-								features:[{"type":"Feature","geometry":{"type":"Point","coordinates":["{{activity.long}}","{{activity.lat}}"]}}]
+								features:[{"type":"Feature","geometry":{"type":"Point","coordinates":["{{activity.address.long}}","{{activity.address.lat}}"]}}]
 							  }
 							},
 							layout: {

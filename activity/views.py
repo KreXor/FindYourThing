@@ -3,6 +3,7 @@ import json
 from django.shortcuts import render
 from django.utils import timezone
 from .models import Activity
+from .models import ActivityType
 from django.http import HttpResponse
 from django.core import serializers
 
@@ -16,7 +17,7 @@ def activity_list(request):
             return HttpResponse(json.dumps(''),
 			    content_type='application/json')
         location = location.split(',')
-        activities = Activity.objects.filter(address__contains=location[0]).order_by('published_date')
+        activities = Activity.objects.filter(address__city__iexact=location[0]).order_by('published_date')
         # do whatever processing you need
         # user.some_property = whatever
 
@@ -27,8 +28,8 @@ def activity_list(request):
         return HttpResponse(json.dumps(json_response),
             content_type='application/json')
 	
-    activities = Activity.objects.order_by('published_date')
-    return render(request, 'activity/activity_list.html', {'activities': activities})
+    activityTypes = ActivityType.objects
+    return render(request, 'activity/activity_list.html', {'activityTypes': activityTypes})
 	
 def activity_detail(request, activity_id):
     try:

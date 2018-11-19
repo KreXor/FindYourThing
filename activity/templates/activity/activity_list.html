@@ -11,7 +11,7 @@
 		</center>
 		<br />
 		<div class="search-form">
-			<input type="search" value="" placeholder="Try London or Alingsås" list="locations" class="search-input " id="search-field"/>
+			<input type="search" value="" placeholder="Search location" list="locations" class="search-input " id="search-field"/>
 
 			<button type="button" class="search-button" id="btn-submit">
 				<i class="fas fa-search"></i>
@@ -81,37 +81,7 @@
 		</div>-->
 	</div>
 	<div class="container center" id="activity-result">
-		<h1>Nothing here! Try to search for Alingsås or London</h1>
-			<!--{% for activity in activities %}
-				<div class="row">
-					<div class="col-md-6 activity-list">
-						<div class="well well-sm">
-							<div class="row">
-								<div class="col-xs-12 col-md-12 section-box">
-									<h2>
-										<a href="{{ activity.id }}" target="_blank">{{ activity.title }}</a>
-									</h2>
-									<p>
-										{{ activity.description }}
-									</p>
-									<hr />
-									<div class="row rating-desc">
-										<div class="col-md-9">
-											<span class="glyphicon glyphicon-heart"></span><span class="glyphicon glyphicon-heart">
-											</span><span class="glyphicon glyphicon-heart"></span><span class="glyphicon glyphicon-heart">
-											</span><span class="glyphicon glyphicon-heart"></span>(36)<span class="separator">|</span>
-											<span class="glyphicon glyphicon-comment"></span>(100 Comments)
-										</div>
-										<div class="col-md-3">
-											<a class="btn btn-orange" href="{{ activity.id }}" role="button">More info</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			{% endfor %} -->
+		<center><h2>Try to search for Alingsås</h2></center>
 	</div>
 
 
@@ -189,7 +159,7 @@ function search() {
 		success: function(json) {
 			var obj = jQuery.parseJSON(json);
 			$.each(obj, function(key,value) {
-				
+
 				var e = $('\
 				<div class="row">\
 					<div class="col-md-6 activity-list">\
@@ -222,6 +192,10 @@ function search() {
 				
 				$('#activity-result').append(e);
 			})
+			
+			if ($('#activity-result').is(':empty')){
+				$('#activity-result').append('<center><h2>Sorry we could not find any activities in '+location+'.</h2></center>');
+			}
 		},
 		error: function (ajaxContext) {
 			console.log(ajaxContext.responseText)
